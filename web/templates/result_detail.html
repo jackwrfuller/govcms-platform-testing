@@ -1,0 +1,45 @@
+{{define "result_detail.html"}}
+{{template "layout.html" .}}
+{{end}}
+
+{{define "content"}}
+<h1>Result: {{.Result.SiteName}}</h1>
+
+<div class="result-meta">
+    <span class="badge badge-{{.Result.Status}}">{{.Result.Status}}</span>
+    {{if .Result.DurationMs}}<span>Duration: {{.Result.DurationMs}}ms</span>{{end}}
+    {{if .Result.ExitCode}}<span>Exit code: {{.Result.ExitCode}}</span>{{end}}
+</div>
+
+<div class="result-stats">
+    <div class="stat">
+        <span class="stat-value">{{.Result.TestsTotal}}</span>
+        <span class="stat-label">Total</span>
+    </div>
+    <div class="stat">
+        <span class="stat-value">{{.Result.TestsPassed}}</span>
+        <span class="stat-label">Passed</span>
+    </div>
+    <div class="stat">
+        <span class="stat-value">{{.Result.TestsFailed}}</span>
+        <span class="stat-label">Failed</span>
+    </div>
+</div>
+
+{{if .Result.ErrorMsg}}
+<h2>Error</h2>
+<pre class="output error-output">{{.Result.ErrorMsg}}</pre>
+{{end}}
+
+{{if .Result.Stdout}}
+<h2>Stdout</h2>
+<pre class="output">{{.Result.Stdout}}</pre>
+{{end}}
+
+{{if .Result.Stderr}}
+<h2>Stderr</h2>
+<pre class="output error-output">{{.Result.Stderr}}</pre>
+{{end}}
+
+<a href="/runs/{{.Result.RunID}}" class="btn">Back to Run</a>
+{{end}}

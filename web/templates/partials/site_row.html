@@ -1,0 +1,12 @@
+{{define "site_row.html"}}
+<tr id="site-{{.ID}}">
+    <td>{{.Name}}</td>
+    <td><a href="{{.CanaryURL}}" target="_blank" rel="noopener">{{.CanaryURL}}</a></td>
+    <td>{{if .Active}}<span class="badge badge-passed">Active</span>{{else}}<span class="badge badge-inactive">Inactive</span>{{end}}</td>
+    <td>
+        <button hx-post="/sites/{{.ID}}/toggle" hx-target="#site-{{.ID}}" hx-swap="outerHTML" class="btn btn-sm">
+            {{if .Active}}Disable{{else}}Enable{{end}}
+        </button>
+    </td>
+</tr>
+{{end}}

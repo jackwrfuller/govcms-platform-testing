@@ -1,0 +1,13 @@
+sites:
+  - name: esafety
+    canary_url: https://nginx-canary-esafety.govcms10.amazee.io
+    active: true
+
+  - name: royalcommission
+    canary_url: https://nginx-canary-royalcommission.govcms10.amazee.io/
+    active: true
+
+  # Add your sites here. Each entry needs:
+  #   name:       unique identifier for the site
+  #   canary_url: URL of the canary environment to test
+  #   active:     whether to include in test runs (true/false)

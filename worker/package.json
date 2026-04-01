@@ -1,0 +1,10 @@
+{
+  "name": "platform-testing-worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cypress test worker for GovCMS platform testing",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  }
+}

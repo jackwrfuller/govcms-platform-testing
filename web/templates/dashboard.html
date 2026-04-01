@@ -1,0 +1,35 @@
+{{define "dashboard.html"}}
+{{template "layout.html" .}}
+{{end}}
+
+{{define "content"}}
+<h1>Dashboard</h1>
+
+<div class="actions">
+    <button hx-post="/runs" hx-target="#main-content" hx-swap="innerHTML" class="btn btn-primary">
+        Start New Test Run
+    </button>
+</div>
+
+{{if .Run}}
+<div {{if eq .Run.Status "running"}}hx-ext="sse" sse-connect="/sse?run_id={{.Run.ID}}"{{end}}>
+    <h2>Latest Run #{{.Run.ID}}</h2>
+
+    <div id="run-progress" {{if eq .Run.Status "running"}}sse-swap="RunProgress"{{end}}>
+        {{template "run_progress.html" .Run}}
+    </div>
+
+    {{if eq .Run.Status "running"}}<div sse-swap="SiteComplete" hx-swap="none"></div>{{end}}
+
+    <div id="results-list" class="results-grid">
+        {{range .Results}}
+            {{template "result_card.html" .}}
+        {{end}}
+    </div>
+</div>
+{{else}}
+<div class="empty-state">
+    <p>No test runs yet. Start one to begin testing your canary environments.</p>
+</div>
+{{end}}
+{{end}}

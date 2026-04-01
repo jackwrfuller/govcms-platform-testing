@@ -1,0 +1,18 @@
+{{define "run_progress.html"}}
+<div class="progress-container">
+    <div class="progress-info">
+        <span class="badge badge-{{.Status}}">{{.Status}}</span>
+        <span>{{.Completed}} / {{.TotalSites}} sites</span>
+        <span class="progress-stats">
+            <span class="text-passed">{{.Passed}} passed</span>
+            <span class="text-failed">{{.Failed}} failed</span>
+            <span class="text-errored">{{.Errored}} errored</span>
+        </span>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill progress-passed" style="width: {{if .TotalSites}}{{printf "%.1f" (divf (mulf .Passed 100) .TotalSites)}}%{{else}}0%{{end}}"></div>
+        <div class="progress-fill progress-failed" style="width: {{if .TotalSites}}{{printf "%.1f" (divf (mulf .Failed 100) .TotalSites)}}%{{else}}0%{{end}}"></div>
+        <div class="progress-fill progress-errored" style="width: {{if .TotalSites}}{{printf "%.1f" (divf (mulf .Errored 100) .TotalSites)}}%{{else}}0%{{end}}"></div>
+    </div>
+</div>
+{{end}}

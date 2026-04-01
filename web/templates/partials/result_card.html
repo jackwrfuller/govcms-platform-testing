@@ -1,0 +1,19 @@
+{{define "result_card.html"}}
+<div id="result-{{.ID}}" class="result-card result-{{.Status}}">
+    <div class="result-card-header">
+        <span class="result-site-name">{{.SiteName}}</span>
+        <span class="badge badge-{{.Status}}">{{.Status}}</span>
+    </div>
+    {{if ne .Status "pending"}}
+    <div class="result-card-body">
+        {{if .DurationMs}}<span class="result-duration">{{.DurationMs}}ms</span>{{end}}
+        <span class="result-tests">{{.TestsPassed}}/{{.TestsTotal}} tests passed</span>
+    </div>
+    {{end}}
+    {{if or (eq .Status "passed") (eq .Status "failed") (eq .Status "errored")}}
+    <div class="result-card-footer">
+        <a href="/runs/{{.RunID}}/results/{{.ID}}" class="btn btn-sm">Details</a>
+    </div>
+    {{end}}
+</div>
+{{end}}

@@ -1,0 +1,48 @@
+{{define "runs.html"}}
+{{template "layout.html" .}}
+{{end}}
+
+{{define "content"}}
+<h1>Test Runs</h1>
+
+<div class="actions">
+    <button hx-post="/runs" hx-target="#main-content" hx-swap="innerHTML" class="btn btn-primary">
+        Start New Test Run
+    </button>
+</div>
+
+{{if .Runs}}
+<table>
+    <thead>
+        <tr>
+            <th>Run</th>
+            <th>Status</th>
+            <th>Sites</th>
+            <th>Passed</th>
+            <th>Failed</th>
+            <th>Errors</th>
+            <th>Started</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{range .Runs}}
+        <tr>
+            <td><a href="/runs/{{.ID}}">#{{.ID}}</a></td>
+            <td><span class="badge badge-{{.Status}}">{{.Status}}</span></td>
+            <td>{{.TotalSites}}</td>
+            <td>{{.Passed}}</td>
+            <td>{{.Failed}}</td>
+            <td>{{.Errored}}</td>
+            <td>{{if .StartedAt}}{{.StartedAt.Format "2006-01-02 15:04:05"}}{{else}}-{{end}}</td>
+            <td><a href="/runs/{{.ID}}" class="btn btn-sm">View</a></td>
+        </tr>
+        {{end}}
+    </tbody>
+</table>
+{{else}}
+<div class="empty-state">
+    <p>No test runs yet.</p>
+</div>
+{{end}}
+{{end}}

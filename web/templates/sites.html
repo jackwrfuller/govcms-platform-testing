@@ -1,0 +1,24 @@
+{{define "sites.html"}}
+{{template "layout.html" .}}
+{{end}}
+
+{{define "content"}}
+<h1>Sites</h1>
+<p>{{len .Sites}} sites configured</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Canary URL</th>
+            <th>Active</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{range .Sites}}
+            {{template "site_row.html" .}}
+        {{end}}
+    </tbody>
+</table>
+{{end}}

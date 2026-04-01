@@ -1,0 +1,34 @@
+{{define "run_detail.html"}}
+{{template "layout.html" .}}
+{{end}}
+
+{{define "content"}}
+{{template "run_detail_content.html" .}}
+{{end}}
+
+{{define "run_detail_content.html"}}
+<div {{if eq .Run.Status "running"}}hx-ext="sse" sse-connect="/sse?run_id={{.Run.ID}}"{{end}}>
+    <div class="run-header">
+        <h1>Run #{{.Run.ID}}</h1>
+        {{if eq .Run.Status "running"}}
+        <button hx-post="/runs/{{.Run.ID}}/cancel" hx-target="#main-content" hx-swap="innerHTML"
+                hx-confirm="Cancel this test run?" class="btn btn-danger">
+            Cancel Run
+        </button>
+        {{end}}
+    </div>
+
+    <div id="run-progress" {{if eq .Run.Status "running"}}sse-swap="RunProgress" hx-swap="innerHTML"{{end}}>
+        {{template "run_progress.html" .Run}}
+    </div>
+
+    {{if eq .Run.Status "running"}}<div sse-swap="SiteComplete" hx-swap="none"></div>{{end}}
+
+    <h2>Results</h2>
+    <div id="results-list" class="results-grid">
+        {{range .Results}}
+            {{template "result_card.html" .}}
+        {{end}}
+    </div>
+</div>
+{{end}}
