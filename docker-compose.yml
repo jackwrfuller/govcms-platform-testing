@@ -45,7 +45,7 @@ services:
   postgres:
     image: postgres:16-alpine
     labels:
-      lagoon.type: postgres
+      lagoon.type: postgres-single
     environment:
       POSTGRES_USER: platform
       POSTGRES_PASSWORD: platform
